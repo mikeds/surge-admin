@@ -67,6 +67,9 @@ $route["church-branches/(:num)"]    = "admin/Church_branches/index";
 $route["church-branches/new"]            = "admin/Church_branches/new";
 $route["church-branches/update/(:any)"]  = "admin/Church_branches/update/$1";
 
+$route["church-transactions"]           = "admin/Church_transactions";
+$route["church-transactions/(:num)"]    = "admin/Church_transactions/index/$1";
+
 $route["login"]     = "public/login";
 $route["logout"]    = "public/logout";
 
