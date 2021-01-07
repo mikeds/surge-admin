@@ -88,6 +88,14 @@ class Admin_Controller extends Admin_Core_Controller {
 		);
 
 		$menu_items[] = array(
+			'menu_id'			=> 'church-transactions',
+			'menu_title'		=> 'Church Transactions',
+			'menu_url'			=> 	base_url() . "church-transactions",
+			'menu_controller'	=> 'church_transactions',
+			'menu_icon'			=> 'view-dashboard',
+		);
+
+		$menu_items[] = array(
 			'menu_id'			=> 'church-leaders',
 			'menu_title'		=> 'Church Leaders',
 			'menu_url'			=> 	base_url() . "church-leaders",
@@ -96,5 +104,71 @@ class Admin_Controller extends Admin_Core_Controller {
 		);
 
 		$this->_data['nav_sidebar_menu'] = $this->generate_sidebar_items($menu_items);
+	}
+
+	public function get_oauth_info($oauth_bridge_id) {
+		$this->load->model("admin/client_accounts_model", "clients");
+		$this->load->model("admin/pastor_accounts_model", "pastors");
+		$this->load->model("admin/church_branches_model", "branches");
+
+		$client_row = $this->clients->get_datum(
+			'',
+			array(
+				'oauth_bridge_id' => $oauth_bridge_id
+			)
+		)->row();
+
+		if ($client_row != "") {
+			return array(
+				'name' => "{$client_row->account_fname} {$client_row->account_mname} {$client_row->account_lname}"
+			);
+		}
+
+		$pastor_row = $this->pastors->get_datum(
+			'',
+			array(
+				'oauth_bridge_id' => $oauth_bridge_id
+			)
+		)->row();
+
+		if ($pastor_row != "") {
+			return array(
+				'name' => "{$pastor_row->account_fname} {$pastor_row->account_mname} {$pastor_row->account_lname}"
+			);
+		}
+
+		$branch_row = $this->branches->get_datum(
+			'',
+			array(
+				'oauth_bridge_id' => $oauth_bridge_id
+			)
+		)->row();
+
+		if ($branch_row != "") {
+			return array(
+				'name' => $branch_row->cbranch_name
+			);
+		}
+
+		return false;
+	}
+
+	public function get_branches() {
+		$this->load->model("admin/church_branches_model", "branches");
+
+		$results = $this->branches->get_data(
+			array(
+				'cbranch_number',
+				'cbranch_name'
+			),
+			array(
+				'cbranch_status' => 1
+			),
+			array(),
+			array(),
+			array('filter'=> 'cbranch_name', 'sort'=>'ASC')
+		);
+
+		return $results;
 	}
 }
