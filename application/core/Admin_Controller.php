@@ -88,6 +88,14 @@ class Admin_Controller extends Admin_Core_Controller {
 		);
 
 		$menu_items[] = array(
+			'menu_id'			=> 'church-leaders',
+			'menu_title'		=> 'Church Leaders',
+			'menu_url'			=> 	base_url() . "church-leaders",
+			'menu_controller'	=> 'church_leaders',
+			'menu_icon'			=> 'view-dashboard',
+		);
+
+		$menu_items[] = array(
 			'menu_id'			=> 'church-transactions',
 			'menu_title'		=> 'Church Transactions',
 			'menu_url'			=> 	base_url() . "church-transactions",
@@ -96,10 +104,18 @@ class Admin_Controller extends Admin_Core_Controller {
 		);
 
 		$menu_items[] = array(
-			'menu_id'			=> 'church-leaders',
-			'menu_title'		=> 'Church Leaders',
-			'menu_url'			=> 	base_url() . "church-leaders",
-			'menu_controller'	=> 'church_leaders',
+			'menu_id'			=> 'pastor-transactions',
+			'menu_title'		=> 'Pastor Transactions',
+			'menu_url'			=> 	base_url() . "pastor-transactions",
+			'menu_controller'	=> 'pastor_transactions',
+			'menu_icon'			=> 'view-dashboard',
+		);
+
+		$menu_items[] = array(
+			'menu_id'			=> 'client-transactions',
+			'menu_title'		=> 'Client Transactions',
+			'menu_url'			=> 	base_url() . "client-transactions",
+			'menu_controller'	=> 'client_transactions',
 			'menu_icon'			=> 'view-dashboard',
 		);
 
@@ -110,6 +126,7 @@ class Admin_Controller extends Admin_Core_Controller {
 		$this->load->model("admin/client_accounts_model", "clients");
 		$this->load->model("admin/pastor_accounts_model", "pastors");
 		$this->load->model("admin/church_branches_model", "branches");
+		$this->load->model("admin/admins_model", "admins");
 
 		$client_row = $this->clients->get_datum(
 			'',
@@ -147,6 +164,19 @@ class Admin_Controller extends Admin_Core_Controller {
 		if ($branch_row != "") {
 			return array(
 				'name' => $branch_row->cbranch_name
+			);
+		}
+
+		$admin_row = $this->admins->get_datum(
+			'',
+			array(
+				'oauth_bridge_id' => $oauth_bridge_id
+			)
+		)->row();
+
+		if ($admin_row != "") {
+			return array(
+				'name' => $admin_row->admin_name
 			);
 		}
 
