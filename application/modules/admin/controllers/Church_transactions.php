@@ -88,7 +88,7 @@ SQL;
 
 		$this->_data['listing'] 	= $this->table_listing('', $filtered_results, $total_rows, $offset, $this->_limit, $actions, 2);
 		$this->_data['title']  		= "Church Transactions";
-		$this->set_template("transactions/list", $this->_data);
+		$this->set_template("church_transactions/list", $this->_data);
 	}
 
 	private function filter_results($results) {

@@ -70,6 +70,12 @@ $route["church-branches/update/(:any)"]  = "admin/Church_branches/update/$1";
 $route["church-transactions"]           = "admin/Church_transactions";
 $route["church-transactions/(:num)"]    = "admin/Church_transactions/index/$1";
 
+$route["client-transactions"]           = "admin/Client_transactions";
+$route["client-transactions/(:num)"]    = "admin/Client_transactions/index/$1";
+
+$route["pastor-transactions"]           = "admin/Pastor_transactions";
+$route["pastor-transactions/(:num)"]    = "admin/Pastor_transactions/index/$1";
+
 $route["login"]     = "public/login";
 $route["logout"]    = "public/logout";
 
