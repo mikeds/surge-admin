@@ -4,4 +4,5 @@
 # Ignore local htaccess
 /.htaccess
 
+/config.env.php
 /config.php
